@@ -1,0 +1,27 @@
+html(lang="cn")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    style
+      include ./login.css
+    title 管理员登录
+  body
+    .admin
+      form(method="post")
+        h3 登录后台管理
+        div
+          label(for="name") 账号名：
+          input(type="text", name='name' ,required, value=(name===undefined ? '' : name))
+          if accountWarning
+            span.warning #{accountWarning}
+        div
+          label(for="password") 密码:
+          input(type="password", name="password" , required,value=(name===undefined ? '' : name))
+          if passwordWarning
+            span.warning #{passwordWarning}
+        button(type='submit') 登录
+        
+  script
+      include ./login.js
+      

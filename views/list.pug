@@ -1,0 +1,21 @@
+extends layout
+
+append head
+  style.
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    .delete {
+      color: red;
+    }
+  
+
+block content
+  div
+    a(href='genre/create') 创建新的分类
+  ul
+    each genre in data
+      li
+        a(href=genre.url) #{genre.name && genre.nameCN} &nbsp;
+        a.delete(href=`genre/${genre._id}/delete`) 删除

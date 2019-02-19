@@ -1,0 +1,40 @@
+html(lang="cn")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css")
+    link(rel="stylesheet", href="stylesheets/admin.css")
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    title 后台管理
+  body
+    header
+      div
+        span 欢迎您：#{name} &nbsp;|&nbsp;
+        a(href='/admin/logout') 退出
+      div
+        ul
+          li 备用
+    .container
+      .sidebar
+        ul
+          li
+            a(href='/admin/') 首页
+          li 
+            a(href='/admin/articles') 文章
+            i.fa.fa-file-text
+            ul
+              li
+                a(href='/admin/article/create') 创建新文章
+              li 其他
+          li
+            a(href='/admin/genre') 分类
+            i.fa.fa-th-large
+            ul
+              li
+                a(href='/admin/genre/create') 创建新分类
+      .content
+        block content
+
+
+        

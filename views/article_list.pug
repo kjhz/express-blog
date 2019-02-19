@@ -1,0 +1,107 @@
+extends layoutWithSidebar.pug
+
+append head
+  link(href="/stylesheets/article_list.css", rel="stylesheet")
+
+block maincontent
+  .article-list
+        .head
+          h2= title
+          a.plus(href="/article/create")
+            i.fa.fa-plus
+            span &nbsp;新建
+        ul.list
+          each article in article_list
+            li
+              article.post-box
+                div.post-img
+                  a(href=article.url)
+                    img(src='/'+article.img.filename, alt=article.img.originalname)
+                div.post-con
+                  h3
+                    a.article-title(href=article.url) #{article.title}
+                    a.article-delete(href=article.url+`/delete`) 删除
+                  div
+                    a(href=article.url)
+                      != article.beginning_preview
+                  aside
+                    span
+                      i.fa.fa-list-alt
+                      -var k = 0
+                      each genre_article in article.genre
+                          if k > 0
+                            ='/'
+                          - k++
+                          a(href=`/articles?genre=${genre_article.name}`)= genre_article.filter_name
+                      else
+                        ='未分类'
+                    span.
+                      #[i.fa.fa-calendar]
+                      #{article.format_updated}
+                    span.
+                      #[i.fa.fa-paw]
+                      #{article.views}
+                    span.
+                      #[i.fa.fa-comment]
+                      #{`3个评论`}
+                    a.read-more(href=article.url) 阅读全文
+          else 
+            li 暂无文章                                      
+        .pagination
+            ul
+              -var i = 1
+              -var genre_name = genre && 'genre='+genre.name
+              if count < 7
+                while i <= count
+                  if i == page
+                    li.current
+                      a(href=`/articles?${genre_name}&page=${i}`)= i++
+                  else
+                    li
+                      a(href=`/articles?${genre_name}&page=${i}`)= i++
+              else
+                if page < 4
+                  while i < 6
+                    if i == page
+                      li.current
+                        a(href=`/articles?${genre_name}&page=${i}`)= i++
+                    else
+                      li
+                        a(href=`/articles?${genre_name}&page=${i}`)= i++
+                  li
+                    a(href=`/articles?${genre_name}&page=6`) ...
+                  li
+                    a(href=`/articles?${genre_name}&page=${count}`) 末页
+                else if page > count - 4
+                  li
+                    a(href=`/articles?${genre_name}&page=1`) 首页
+                  li
+                    a(href=`/articles?${genre_name}&page=${count-5}`) ...
+                  -var y = count-4
+                  while y <= count
+                    if y == page
+                      li.current
+                        a(href=`/articles?${genre_name}&page=${y}`)= y++
+                    else
+                      li
+                        a(href=`/articles?${genre_name}&page=${y}`)= y++
+                else
+                  li
+                    a(href=`/articles?${genre_name}&page=1`) 首页
+                  li
+                    a(href=`/articles?${genre_name}&page=${page-3}`) ...
+                  li
+                    a(href=`/articles?${genre_name}&page=${page-2}`)= page-2
+                  li
+                    a(href=`/articles?${genre_name}&page=${page-1}`)= page-1
+                  li.current
+                    a(href=`/articles?${genre_name}&page=${page}`)= page
+                  li
+                    a(href=`/articles?${genre_name}&page=${page+1}`)= page+1
+                  li
+                    a(href=`/articles?${genre_name}&page=${page+2}`)= page+2
+                  li
+                    a(href=`/articles?${genre_name}&page=${page+3}`) ...
+                  li
+                    a(href=`/articles?${genre_name}&page=${count}`) 末页
+                

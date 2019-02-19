@@ -1,0 +1,100 @@
+doctype html
+html(lang="cn")
+  head
+    block head
+      title= title
+      meta(charset='utf-8')
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+      link(rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css")
+      link(rel='stylesheet', href='/stylesheets/style.css')
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+      script(src='/javascripts/index.js')
+  body
+    header
+      .container.top-header
+        div Hi! 今天是:
+          span#today null
+        div
+          i.fa.fa-id-badge
+          span 欢迎访问梁福苹的个人博客
+          if userName
+            a(href='#')
+              span= userName
+            a(href='/logout')
+              span 注销
+          else
+            a(href='/login')
+              i.fa.fa-qq
+              span 登录
+            a(href='/signin')
+              i.fa.fa-external-link
+              span 注册
+      nav(role="navigation")
+        .container
+          #nav-button
+            i.fa.fa-bars
+          #nav-search
+            i.fa.fa-search
+          ul.nav-catalog
+            li
+              a(href='/') 
+                i.fa.fa-home
+                span 首页
+            li.dropdown
+              a(href='/articles?genre=log')
+                i.fa.fa-edit
+                span 日志
+              ul.dropdown-menu
+                li
+                  a(href='/articles?genre=life')
+                    i.fa.fa-grav
+                    span 生活
+                li
+                  a(href='/articles?genre=news')
+                    i.fa.fa-internet-explorer
+                    span 资讯
+            li.dropdown
+              a(href='/articles?genre=frontweb')
+                i.fa.fa-binoculars
+                span 前端
+              ul.dropdown-menu
+                li
+                  a(href='/articles?genre=frame')
+                    span 架构
+                li
+                  a(href='/articles?genre=database')
+                    span 数据库
+            li.dropdown
+              a(href='/about')
+                i.fa.fa-map-pin
+                span 关于
+              ul.dropdown-menu
+                li
+                  a(href='/about')
+                    i.fa.fa-address-book
+                    span 博主
+                li
+                  a(href='/message')
+                    i.fa.fa-paw
+                    span 留言
+          form.search-bar(action="/search", method="post") 
+            div         
+              input(type="text", name="searchValue")
+              button.fa.fa-search(type="submit")
+    .container
+      block content
+    footer
+      .container
+        ul
+          li
+            a(href='/about') About
+          li
+            a(href='/articles') 其他
+          li
+            a(href="/articles") 文章
+        div
+          span Copyright &nbsp;
+          i.fa.fa-copyright 
+          | &nbsp;by&nbsp;
+          a(href="#") liangfuping
+

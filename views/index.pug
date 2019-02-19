@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title} #[em #{userName}]
+  p= userName
+  h1 content
+
+  ul
+    li
+      a(href='/genre') 分类目录
+    li
+      a(href='/articles') 文章列表
+    

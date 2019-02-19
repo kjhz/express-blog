@@ -1,0 +1,37 @@
+.article-detail {
+  width: 100%;
+  background-color: white; }
+  .article-detail .head {
+    display: flex;
+    padding: 10px; }
+    .article-detail .head span {
+      border: 1px solid darkgray;
+      padding: 5px;
+      margin: 0 6px;
+      float: right;
+      color: darkgray; }
+      .article-detail .head span i {
+        margin-right: 5px; }
+  .article-detail .box header {
+    display: flex;
+    justify-content: center;
+    background-color: darksalmon;
+    border-left: 6px solid cornflowerblue;
+    border-right: 6px solid cornflowerblue; }
+    .article-detail .box header h3 {
+      margin: 0.6em 0; }
+  .article-detail .box section {
+    padding: 20px 10px; }
+
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px; }
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px; } }
+
+/*# sourceMappingURL=article_detail.css.map */

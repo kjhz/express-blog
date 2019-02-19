@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  padding: 0; }
+
+.flex-center, header, header ul {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+header {
+  padding: 10px 20px;
+  justify-content: space-between;
+  background-image: url("/images/adminbg-1.gif"); }
+  header ul {
+    margin: 0;
+    list-style: none; }
+    header ul li {
+      padding: 0 15px;
+      border-left: 1px solid #c2c2c2; }
+
+.container {
+  height: 574px;
+  padding-top: 10px;
+  display: flex; }
+  .container .sidebar {
+    box-sizing: border-box;
+    width: 280px;
+    height: 100%;
+    padding-left: 25px;
+    margin-right: 20px;
+    box-shadow: 2px 0 2px black;
+    background: #c2c2c2; }
+    .container .sidebar ul {
+      margin: 0;
+      padding: 0;
+      list-style: none; }
+      .container .sidebar ul li {
+        padding: 3px;
+        padding-left: 8px; }
+        .container .sidebar ul li li {
+          font-size: 14px; }
+        .container .sidebar ul li a {
+          text-decoration: none;
+          color: black; }
+  .container .content {
+    width: 100%;
+    height: 100%;
+    background-color: #c2c2c2; }
+
+/*# sourceMappingURL=admin.css.map */

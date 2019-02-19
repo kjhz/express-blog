@@ -1,0 +1,62 @@
+extends layout.pug
+
+append head
+  style.
+    .nav-crumbs {
+        margin-bottom: 10px;
+    }
+    .nav-crumbs span {
+      margin: 0 5px;
+      font-size: 15px;
+    }
+    .nav-crumbs span a {
+      color: black;
+      text-decoration: none;
+    }
+    .main {
+      display: flex;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .main .sidebar {
+        width: 280px;
+        margin-left: 30px;
+        background-color: white;
+    }
+    @media screen and (max-width: 1024px) {
+      .main {
+        margin-top: 0;
+      }
+      .main .sidebar {
+       display: none;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .nav-crumbs {
+       background-color: white;
+       padding: 10px;
+      }
+      .nav-crumbs span {
+        font-size: 13px;
+      }
+    }
+
+block content
+  .nav-crumbs
+    span 当前位置：
+    i.fa.fa-home
+    span
+      a(href='/') 首页
+    if genre
+      i.fa.fa-angle-right
+      span
+        a(href=`/articles?genre=${genre.name}`)= genre.filter_name
+    if current
+      i.fa.fa-angle-right
+      span
+        a(href=current.url)= current.name
+  .main
+    block maincontent 
+    block sidebar
+      .sidebar
+        span 暂无内容

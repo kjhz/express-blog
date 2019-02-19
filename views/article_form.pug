@@ -1,0 +1,49 @@
+extends layout
+append head
+  link(href="http://lab.lepture.com/editor/editor.css", rel="stylesheet")
+  script(src="http://lab.lepture.com/editor/editor.js")
+  script(src="http://lab.lepture.com/editor/marked.js")
+  style.
+    .editor {
+      width: 100%;
+      background-color: white;
+    }
+    textarea {
+      width: 100%;
+    }
+block content
+  h1= title
+
+  form(method='POST',action='',enctype='multipart/form-data' )
+    div
+      label(for='title') 标题：
+      input(type='text', placeholder='文章标题' name='title' required='true' value=(undefined===article ? '' : article.title))
+    div
+      label(for='author') 作者:
+      select(type='select', placeholder='Select author' name='author' required='true' )
+        for author in authors
+          if article
+            option(value=author._id selected=(author._id.toString()==article.author ? 'selected' : false) ) #{author.name}
+          else
+            option(value=author._id) #{author.name}
+    div
+      label 分类：
+      div
+        for genre in genres
+          div(style='display: inline; padding-right:10px;')
+            input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
+            label(for=genre._id) #{genre.filter_name}
+    div.editor
+      textarea(name="text")!= undefined===article ? '' : article.text
+    div
+      input(type='file' name='img')
+    button(type='submit') 提交
+    script.
+        var editor = new Editor({
+          element: document.getElementsByClassName('.editor')[0]
+        });
+        editor.render();
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

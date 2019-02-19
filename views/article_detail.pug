@@ -1,0 +1,40 @@
+extends layoutWithSidebar.pug
+
+append head
+  link(href="/stylesheets/article_detail.css", rel="stylesheet")
+  link(href="/stylesheets/github-markdown.css", rel="stylesheet")
+
+block maincontent
+  .article-detail
+    .head
+      span= article.format_updated_CN
+      span
+        i.fa.fa-eye
+        = article.views
+      span
+        a.article-delete(href=article.url+`/update`) 更新&nbsp;
+    .box
+      header
+        h3= article.title
+      article.markdown-body
+        != article.marked_text
+      div
+        span 评论
+        span
+          i.fa.fa-thumbs-up
+          span 赞
+          span 0
+        span 分享
+    div
+      div
+        span 上一篇：
+        a(href='') 上一篇文章
+      div
+        span 下一篇：
+        a(href='') 下一篇文章
+    .comment
+      div
+        i.fa.fa-pen
+        span 发表评论
+
+    
