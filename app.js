@@ -13,8 +13,7 @@ var helmet = require('helmet');
 var app = express();
 
 
-var dev_db_url = "mongodb://guest1:guest1@ds139775.mlab.com:39775/blog";
-var mongoDB = dev_db_url;
+var mongoDB = process.env.MONGODB_URI ||"mongodb://guest1:guest1@ds139775.mlab.com:39775/blog";
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
