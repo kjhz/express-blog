@@ -10,13 +10,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var compression = require('compression')
 var helmet = require('helmet');
-var cfenv = require('cfenv');
 var app = express();
 
-// Set up CF environment variables
-var appEnv = cfenv.getAppEnv();
+
 var dev_db_url = "mongodb://guest1:guest1@ds139775.mlab.com:39775/blog";
-var mongoDB = appEnv.getServiceURL('express-blog') || dev_db_url;
+var mongoDB = dev_db_url;
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
