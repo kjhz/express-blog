@@ -20,7 +20,7 @@ a {
 .container {
   position: relative;
   width: 100%;
-  max-width: 1120px;
+  max-width: 1240px;
   padding: 0 15px;
   margin: 0 auto; }
 
@@ -195,5 +195,125 @@ footer {
       text-decoration: none; }
       footer .container a:hover {
         opacity: 0.8; }
+
+.nav-crumbs {
+  margin-bottom: 10px; }
+  .nav-crumbs span {
+    margin: 0 5px;
+    font-size: 15px; }
+    .nav-crumbs span a {
+      color: black;
+      text-decoration: none; }
+
+.main {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+  .main .sidebar {
+    width: 400px;
+    margin-left: 30px; }
+
+@media screen and (max-width: 1024px) {
+  .main {
+    margin-top: 0; }
+    .main .sidebar {
+      display: none; } }
+
+@media screen and (max-width: 768px) {
+  .nav-crumbs {
+    background-color: white;
+    padding: 10px; }
+    .nav-crumbs span {
+      font-size: 13px; } }
+
+.widget {
+  background-color: white;
+  box-shadow: 0 0 3px darkgrey;
+  border: 1px solid #999;
+  position: relative; }
+  .widget:not(:first-of-type) {
+    margin-top: 20px; }
+
+#author .topAuthor {
+  display: flex;
+  padding: 15px; }
+  #author .topAuthor .left {
+    flex: 2;
+    border: 1px solid #999;
+    margin-right: 10px; }
+    #author .topAuthor .left img {
+      width: 100%;
+      height: 100%; }
+  #author .topAuthor .right {
+    flex: 3;
+    font-size: 16px; }
+    #author .topAuthor .right span {
+      padding: 3px;
+      height: 30px;
+      line-height: 30px;
+      font-size: inherit; }
+    #author .topAuthor .right .tag {
+      background-color: cadetblue;
+      color: white;
+      font-weight: bold; }
+    #author .topAuthor .right .github {
+      font-size: 20px;
+      padding: 0; }
+      #author .topAuthor .right .github a {
+        color: grey; }
+    #author .topAuthor .right .talk {
+      font-size: 15px; }
+
+#author .botAuthor {
+  display: flex;
+  background-color: lavender;
+  border-top: 1px solid #999; }
+  #author .botAuthor > a {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 28px;
+    line-height: 28px;
+    text-decoration: none;
+    color: black; }
+    #author .botAuthor > a:not(:first-of-type) {
+      border-left: 1px solid #999; }
+    #author .botAuthor > a a#likesNum {
+      cursor: text; }
+
+#latestArticle .topLatestArticle {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #999; }
+  #latestArticle .topLatestArticle i {
+    padding: 10px;
+    margin-right: 10px;
+    border-right: 1px solid #999; }
+  #latestArticle .topLatestArticle div {
+    display: block; }
+
+#latestArticle ul.botLatestArticle {
+  margin: 0;
+  padding: 0 15px;
+  list-style-type: none; }
+  #latestArticle ul.botLatestArticle li:not(:last-of-type) {
+    border-bottom: 1px dashed #999; }
+  #latestArticle ul.botLatestArticle li a {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: 500; }
+    #latestArticle ul.botLatestArticle li a:hover {
+      color: brown; }
+      #latestArticle ul.botLatestArticle li a:hover span.date {
+        background-color: brown;
+        color: white; }
+    #latestArticle ul.botLatestArticle li a span.date {
+      padding: 5px 10px;
+      background-color: #999;
+      margin-right: 15px; }
 
 /*# sourceMappingURL=style.css.map */

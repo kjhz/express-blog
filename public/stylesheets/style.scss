@@ -1,25 +1,11 @@
-$font-stack: -apple-system,
-BlinkMacSystemFont,
-Segoe UI,
-Roboto,
-Ubuntu,
-Helvetica Neue,
-Helvetica,
-Arial,
-PingFang SC,
-Hiragino Sans GB,
-Microsoft YaHei UI,
-Microsoft YaHei,
-Source Han Sans CN,
-sans-serif,
-Arial,
-Verdana,
-Tahoma,
-sans-serif;
+$font-stack: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Helvetica Neue, Helvetica, Arial, PingFang SC,
+  Hiragino Sans GB, Microsoft YaHei UI, Microsoft YaHei, Source Han Sans CN, sans-serif, Arial, Verdana, Tahoma,
+  sans-serif;
 $primary-color: #333;
-$active-color:lightblue;
+$active-color: lightblue;
 $border-color: #999;
 $bg-image: url("/images/bodybackground.gif");
+
 body {
   padding: 0;
   margin: 0;
@@ -27,6 +13,8 @@ body {
   color: $primary-color;
   background-image: $bg-image;
 }
+
+
 
 div,
 header,
@@ -45,12 +33,12 @@ a {
 .container {
   position: relative;
   width: 100%;
-  max-width: 1120px;
+  max-width: 1240px;
   padding: 0 15px;
   margin: 0 auto;
 }
 
-body>header {
+body > header {
   position: fixed;
   top: 0;
   left: 0;
@@ -101,7 +89,7 @@ body>header {
         margin: 0;
         padding: 0;
         list-style: none;
-        &>li {
+        & > li {
           display: inline-block;
           @media screen and (min-width: 769px) {
             &:hover {
@@ -121,13 +109,13 @@ body>header {
           z-index: 1;
           display: none;
           background-color: rgba($color: #000000, $alpha: 0.9);
-          &>li {
+          & > li {
             display: block;
             width: 100%;
             border-bottom: 1px solid black;
             box-shadow: 0 0 2px black;
             color: white;
-            &>a {
+            & > a {
               width: 100%;
               color: inherit;
               &:hover {
@@ -231,7 +219,7 @@ body>header {
   }
 }
 
-body>.container {
+body > .container {
   margin-top: 110px;
   @media screen and (max-width: 768px) {
     margin-top: 70px;
@@ -259,6 +247,163 @@ footer {
       text-decoration: none;
       &:hover {
         opacity: 0.8;
+      }
+    }
+  }
+}
+
+.nav-crumbs {
+  margin-bottom: 10px;
+  span {
+    margin: 0 5px;
+    font-size: 15px;
+    a {
+      color: black;
+      text-decoration: none;
+    }
+  }
+}
+.main {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  .sidebar {
+    width: 400px;
+    margin-left: 30px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .main {
+    margin-top: 0;
+    .sidebar {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .nav-crumbs {
+    background-color: white;
+    padding: 10px;
+    span {
+      font-size: 13px;
+    }
+  }
+}
+
+.widget {
+  background-color: white;
+  box-shadow: 0 0 3px darkgrey;
+  border: 1px solid $border-color;
+  position: relative;
+  &:not(:first-of-type) {
+    margin-top: 20px;
+  }
+}
+
+#author {
+  .topAuthor {
+    display: flex;
+    padding: 15px;
+    .left {
+      flex: 2;
+      border: 1px solid $border-color;
+      margin-right: 10px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .right {
+      flex: 3;
+      font-size: 16px;
+      span {
+        padding: 3px;
+        height: 30px;
+        line-height: 30px;
+        font-size: inherit;
+      }
+      .tag {
+        background-color: cadetblue;
+        color: white;
+        font-weight: bold;
+      }
+      .github {
+        font-size: 20px;
+        padding: 0;
+        a {
+          color: grey;
+        }
+      }
+      .talk {
+        font-size: 15px;
+      }
+    }
+  }
+  .botAuthor {
+    display: flex;
+    background-color: lavender;
+    border-top: 1px solid $border-color;
+    & > a {
+      flex: 1;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 28px;
+      line-height: 28px;
+      text-decoration: none;
+      color: black;
+      &:not(:first-of-type) {
+        border-left: 1px solid $border-color;
+      }
+      a#likesNum {
+        cursor: text;
+      }
+    }
+  }
+}
+
+#latestArticle {
+  .topLatestArticle {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $border-color;
+    i {
+      padding: 10px;
+      margin-right: 10px;
+      border-right: 1px solid $border-color;
+    }
+    div {
+      display: block;
+    }
+  }
+  ul.botLatestArticle {
+    margin: 0;
+    padding: 0 15px;
+    list-style-type: none;
+    li {
+      &:not(:last-of-type) {
+        border-bottom: 1px dashed $border-color;
+      }
+      a {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        text-decoration: none;
+        color: black;
+        font-weight: 500;
+        &:hover {
+          color: brown;
+          span.date {
+            background-color: brown;
+            color: white;
+          }
+        }
+        span.date {
+          padding: 5px 10px;
+          background-color: #999;
+          margin-right: 15px;
+          
+        }
       }
     }
   }

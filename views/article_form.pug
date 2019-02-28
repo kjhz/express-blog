@@ -19,13 +19,8 @@ block content
       label(for='title') 标题：
       input(type='text', placeholder='文章标题' name='title' required='true' value=(undefined===article ? '' : article.title))
     div
-      label(for='author') 作者:
-      select(type='select', placeholder='Select author' name='author' required='true' )
-        for author in authors
-          if article
-            option(value=author._id selected=(author._id.toString()==article.author ? 'selected' : false) ) #{author.name}
-          else
-            option(value=author._id) #{author.name}
+      label(for='author') 作者：
+      input(type='text', placeholder='author', name='author', required='true', value=(undefined===article ? 'liang': article.author))
     div
       label 分类：
       div
@@ -37,6 +32,13 @@ block content
       textarea(name="text")!= undefined===article ? '' : article.text
     div
       input(type='file' name='img')
+    div
+      label 标签：
+        input(type='text', name='tag',value= undefined===article ? '' : article.tag[0])
+        input(type='text', name='tag',value= undefined===article ? '' : article.tag[1])
+        input(type='text', name='tag',value= undefined===article ? '' : article.tag[2])
+        input(type='text', name='tag',value= undefined===article ? '' : article.tag[3])
+        input(type='text', name='tag',value= undefined===article ? '' : article.tag[4])
     button(type='submit') 提交
     script.
         var editor = new Editor({

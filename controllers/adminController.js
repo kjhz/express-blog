@@ -1,8 +1,11 @@
 const Admin = require('../models/admin');
 
 exports.login_get = function (req, res) {
-  if (req.session.name) res.redirect('/');
-  res.render('login');
+  if (req.session.admin) {
+    res.redirect('/');
+  } else {
+    res.render('login');
+  }
 }
 
 exports.login_post = function (req, res, next) {
@@ -17,12 +20,13 @@ exports.login_post = function (req, res, next) {
         }
         else if (password === admin.password) {
           //登录成功,保存登录状态到session
-          req.session.name = name;
+          req.session.admin = name;
           req.session.save(function (err) {
+            if (err) return next(err);
             res.redirect('back');
           })
         } else {
-          res.render('login', { passwordWarning: '请输入正确的密码', name: name });
+          res.render('login', { passwordWarning: '请输入正确的密码', name: name,password: password });
         }
       });
   }
@@ -31,7 +35,4 @@ exports.login_post = function (req, res, next) {
 exports.logout_get = function(req,res,next) {
   req.session.destroy();
   res.redirect('back');
-  /* if (!req.session) {
-    res.redirect('/');
-  } */
 }

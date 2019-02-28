@@ -1,46 +1,5 @@
 extends layout.pug
 
-append head
-  style.
-    .nav-crumbs {
-        margin-bottom: 10px;
-    }
-    .nav-crumbs span {
-      margin: 0 5px;
-      font-size: 15px;
-    }
-    .nav-crumbs span a {
-      color: black;
-      text-decoration: none;
-    }
-    .main {
-      display: flex;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    .main .sidebar {
-        width: 280px;
-        margin-left: 30px;
-        background-color: white;
-    }
-    @media screen and (max-width: 1024px) {
-      .main {
-        margin-top: 0;
-      }
-      .main .sidebar {
-       display: none;
-      }
-    }
-    @media screen and (max-width: 768px) {
-      .nav-crumbs {
-       background-color: white;
-       padding: 10px;
-      }
-      .nav-crumbs span {
-        font-size: 13px;
-      }
-    }
-
 block content
   .nav-crumbs
     span 当前位置：
@@ -57,6 +16,30 @@ block content
         a(href=current.url)= current.name
   .main
     block maincontent 
-    block sidebar
-      .sidebar
-        span 暂无内容
+    .sidebar
+      block sidebar
+        .widget
+          #author
+            .topAuthor
+              .left
+                img(src="/images/timg.jpg", alt="头像")
+              .right
+                span.tag 博主：
+                span.names 梁福苹
+                span.github
+                  a(href="https://www.github.com/kjhz",target="_blank")
+                    i.fa.fa-github
+                .talk 记录学习的过程
+            .botAuthor
+                a#articleNum(href='/articles')
+                  span 文章
+                  span.num 
+                a#likesNum  
+                  span 喜欢
+                  span.num 
+        .widget 
+          #latestArticle
+            .topLatestArticle
+              i.fa.fa-list-alt
+              div 最新文章
+            ul.botLatestArticle

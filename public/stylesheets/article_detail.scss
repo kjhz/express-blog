@@ -1,7 +1,7 @@
 .article-detail {
   width:100%;
   background-color: white;
-  .head {
+  &>.head {
     display: flex;
     padding: 10px;
     span {
@@ -10,6 +10,10 @@
       margin: 0 6px;
       float: right; 
       color: darkgray;
+      a {
+        text-decoration: none;
+        color: red;
+      }
       i {
         margin-right: 5px;
       }
@@ -26,21 +30,123 @@
         margin: 0.6em 0;
       }
     }
-    section {
-      padding: 20px 10px;
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 45px;
+    }
+    @media  (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+  }
+  .vote {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    &>div {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: coral;
+      border-radius: 100%;
+      cursor: pointer;
+      &.hasVote {
+        cursor: default;
+        background-color: dimgray;
+      }
+      i {
+        font-size: 25px;
+        color: white;
+      }
+      span {
+        color: white;
+        font-size: 25px;
+        margin-left: 4px;
+      }
+    }
+  }
+  .tag {
+    padding-left: 15px;
+    span {
+      padding: 3px 8px;
+      margin: 0 10px;
+      color: white;
+      &:nth-child(1) {
+        background-color: darkslategrey;
+      }
+      &:nth-child(2) {
+        background-color: teal;
+      }
+      &:nth-child(3) {
+        background-color: forestgreen;
+      }
+      &:nth-child(4) {
+        background-color: olivedrab;
+      }
+      &:nth-child(5) {
+        background-color: rosybrown;
+      }
     }
   }
 }
 
-.markdown-body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
+
+
+#comment,#comments {
+  padding: 0 15px;
+  margin: 10px 0;
+  color: darkslategray;
+  &>.head {
+    padding-bottom: 5px;
+    border-bottom: 1px solid darkslategray;
+    i { color: inherit;}
+    span {
+      padding-left: 5px;
+      color: inherit;
+    }
+  }
 }
-@media  (max-width: 767px) {
-  .markdown-body {
-    padding: 15px;
+#comment {
+  form {
+    &>div {
+      margin-top: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    textarea {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      resize: none;
+    }
+    input[type='submit'] {
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: darkslategrey;
+      color: white;
+    }
+  }
+}
+#comments {
+  ul.comment-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px black;
+      .comment-text {
+        margin-top: 5px;
+        font-size: 13px;
+      }
+    }
   }
 }

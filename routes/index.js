@@ -5,19 +5,23 @@ var router = express.Router();
 // Require controller modules.
 var index_controller = require('../controllers/indexController');
 var article_controller = require('../controllers/articleController');
-var author_controller = require('../controllers/authorController');
 var genre_controller = require('../controllers/genreController');
 var user_controller = require('../controllers/userController');
 var admin_controller = require('../controllers/adminController');
+var comment_controller = require('../controllers/commentController');
+
 
 //主页
 router.get('/', index_controller.index);
+
+router.get('/search', index_controller.search_get)
 
 //登录和注销
 router.get('/login', admin_controller.login_get);
 router.post('/login', admin_controller.login_post);
 
 router.get('/logout', admin_controller.logout_get);
+
 
 /// GENRE ROUTES ///
 
@@ -51,26 +55,17 @@ router.get('/article/:id/update', article_controller.article_update_get);
 
 router.post('/article/:id/update', article_controller.article_update_post);
 
+router.get('/article/:id/meta', article_controller.article_meta_get);
+
+router.post('/article/:id/votes', article_controller.article_votes_post);
+
+/// comments ///
+router.get('/article/:id/comments', comment_controller.comment_list);
+
+router.post('/article/:id/comment_create', comment_controller.comment_create_post)
+
 router.get('/article/:id', article_controller.article_detail);
 
-
-
-/// AUTHOR ROUTES ///
-router.get('/author/create', author_controller.author_create_get);
-
-router.post('/author/create', author_controller.author_create_post);
-
-router.get('/author/:id/delete', author_controller.author_delete_get);
-
-router.post('/author/:id/delete', author_controller.author_delete_post);
-
-router.get('/author/:id/update', author_controller.author_update_get);
-
-router.post('/author/:id/update', author_controller.author_update_post);
-
-router.get('/author/:id', author_controller.author_detail);
-
-router.get('/authors', author_controller.author_list);
 
 /// user router ///
 

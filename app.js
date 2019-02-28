@@ -8,12 +8,13 @@ var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var apiRouter = require('./routes/api');
 var compression = require('compression')
 var helmet = require('helmet');
 var app = express();
 
 
-var mongoDB = process.env.MONGODB_URI ||"mongodb://guest1:guest1@ds139775.mlab.com:39775/blog";
+var mongoDB = process.env.MONGODB_URI || "mongodb://guest1:guest1@ds139775.mlab.com:39775/blog";
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
@@ -50,8 +51,28 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.all('*', function (req, res, next) {
+  if (req.session.admin){
+   app.locals.admin = req.session.admin;
+  } else if (req.session.user) {
+    app.locals.user = req.session.user;
+  } else {
+    app.locals.admin = null;
+    app.locals.user = null;
+  }
+  next();
+});
+app.all(/\/(create|update|delete)/,function(req,res,next){
+  if (!req.session.admin) {
+    res.redirect('/login')
+    res.end();
+  } else {
+    next();
+  }
+})
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter); //用于ajax调用json数据
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

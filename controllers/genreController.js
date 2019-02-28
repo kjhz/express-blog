@@ -21,7 +21,7 @@ exports.genre_article_list = function (req, res, next) {
         },
         articles: function (callback) {
             Article.find({ 'genre': req.params.id })
-                .populate('author genre')
+                .populate('genre')
                 .exec(callback);
         }
     }, function (err, results) {
@@ -80,9 +80,8 @@ exports.genre_create_post = [
 
 exports.genre_delete_get = function (req, res, next) {
     Genre.deleteOne({ '_id': req.params.id }, function (err) {
-        if (err) next();
+        if (err) next(err);
         res.send('删除成功');
-
     })
 };
 

@@ -10,6 +10,7 @@ $(document).ready(function () {
     switch (weekday) {
       case 0:
         weekdayTxt = "日";
+        break;
       case 1:
         weekdayTxt = "一";
         break;
@@ -21,6 +22,7 @@ $(document).ready(function () {
         break;
       case 4:
         weekdayTxt = "四";
+        break;
       case 5:
         weekdayTxt = "五";
         break;
@@ -33,7 +35,7 @@ $(document).ready(function () {
     var text = `${year}年${month}月${day}日 周${weekdayTxt}`;
     return text;
   });
-  //下拉菜单
+  //下拉菜单,移动端适配
   let dropdownHandler = function () {
     let dropdownElement = $('.dropdown'),
       dropdownMenu = $('nav .dropdown .dropdown-menu'),
@@ -88,7 +90,7 @@ $(document).ready(function () {
       if (scrollDirection == 'down') {
         //页面向下滚动要做的事情
         var window_scrollTop = $(window).scrollTop();
-        if (window_scrollTop > 180) {
+        if (window_scrollTop > 160) {
           headerElement.slideUp();
         }
       }
@@ -125,4 +127,29 @@ $(document).ready(function () {
     scrollAction.x = window.pageXOffset;
     scrollAction.y = window.pageYOffset;
   }
+
+  //ajax获得侧边栏需要的数据
+  $.getJSON('/api/article_list_latest',function(data) {
+    let html=[];
+    for (let i=0; i<data.length; i++) {
+      let date = new Date(data[i].updated);
+      let month = date.getMonth(),
+        day = date.getDate();
+
+      html.push(`
+        <li>
+          <a href='/article/${data[i]._id}'>
+            <span class='date'>${day}/${month}</span>
+            <span class='title'>${data[i].title}</span>
+          </a>
+        </li>
+      `)
+    }
+    $('#latestArticle ul').html(html);
+  });
+
+  $.getJSON('/api/counts', function(data) {
+    $('#articleNum .num').text(data.article_count);
+    $('#likesNum .num').text(data.votes_count);
+  });
 });

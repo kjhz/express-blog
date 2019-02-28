@@ -1,0 +1,57 @@
+.pagination
+    ul
+        -var i = 1
+        -var genre_name = genre && 'genre='+genre.name
+        if count < 7
+            while i <= count
+                if i == page
+                    li.current
+                        a(href=`/articles?${genre_name}&page=${i}`)= i++
+                else
+                    li
+                        a(href=`/articles?${genre_name}&page=${i}`)= i++
+        else
+            if page < 4
+                while i < 6
+                if i == page
+                    li.current
+                        a(href=`/articles?${genre_name}&page=${i}`)= i++
+                else
+                    li
+                        a(href=`/articles?${genre_name}&page=${i}`)= i++
+                li
+                    a(href=`/articles?${genre_name}&page=6`) ...
+                li
+                    a(href=`/articles?${genre_name}&page=${count}`) 末页
+            else if page > count - 4
+                li
+                    a(href=`/articles?${genre_name}&page=1`) 首页
+                li
+                    a(href=`/articles?${genre_name}&page=${count-5}`) ...
+                -var y = count-4
+                while y <= count
+                    if y == page
+                        li.current
+                            a(href=`/articles?${genre_name}&page=${y}`)= y++
+                    else
+                        li
+                            a(href=`/articles?${genre_name}&page=${y}`)= y++
+            else
+                li
+                    a(href=`/articles?${genre_name}&page=1`) 首页
+                li
+                    a(href=`/articles?${genre_name}&page=${page-3}`) ...
+                li
+                    a(href=`/articles?${genre_name}&page=${page-2}`)= page-2
+                li
+                    a(href=`/articles?${genre_name}&page=${page-1}`)= page-1
+                li.current
+                    a(href=`/articles?${genre_name}&page=${page}`)= page
+                li
+                    a(href=`/articles?${genre_name}&page=${page+1}`)= page+1
+                li
+                    a(href=`/articles?${genre_name}&page=${page+2}`)= page+2
+                li
+                    a(href=`/articles?${genre_name}&page=${page+3}`) ...
+                li
+                    a(href=`/articles?${genre_name}&page=${count}`) 末页

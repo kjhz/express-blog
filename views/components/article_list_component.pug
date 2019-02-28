@@ -1,0 +1,43 @@
+
+.head
+  h2= title
+  if admin
+    a.plus(href="/article/create")
+      i.fa.fa-plus
+      span &nbsp;新建
+ul.list
+  each article in article_list
+    li
+      article.post-box
+        div.post-img
+          a(href=article.url)
+            img(src='/'+article.img.filename, alt=article.img.originalname)
+        div.post-con
+          h3
+            a.article-title(href=article.url) #{article.title}
+            if admin
+              a.article-delete(href=article.url+`/delete`) 删除
+          div
+            a(href=article.url)
+              != article.beginning_preview
+          aside
+            span
+              i.fa.fa-list-alt
+              -var k = 0
+              each genre_article in article.genre
+                  if k > 0
+                    ='/'
+                  - k++
+                  a(href=`/articles?genre=${genre_article.name}`)= genre_article.filter_name
+              else
+                ='未分类'
+            span.
+              #[i.fa.fa-calendar]
+              #{article.format_updated}
+            span.
+              #[i.fa.fa-paw]
+              #{article.views}
+            span.
+              #[i.fa.fa-comment]
+              #{`${article.commentsLength}个评论`}
+            a.read-more(href=article.url) 阅读全文

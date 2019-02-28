@@ -1,16 +1,19 @@
 .article-detail {
   width: 100%;
   background-color: white; }
-  .article-detail .head {
+  .article-detail > .head {
     display: flex;
     padding: 10px; }
-    .article-detail .head span {
+    .article-detail > .head span {
       border: 1px solid darkgray;
       padding: 5px;
       margin: 0 6px;
       float: right;
       color: darkgray; }
-      .article-detail .head span i {
+      .article-detail > .head span a {
+        text-decoration: none;
+        color: red; }
+      .article-detail > .head span i {
         margin-right: 5px; }
   .article-detail .box header {
     display: flex;
@@ -20,18 +23,96 @@
     border-right: 6px solid cornflowerblue; }
     .article-detail .box header h3 {
       margin: 0.6em 0; }
-  .article-detail .box section {
-    padding: 20px 10px; }
+  .article-detail .box .markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px; }
+  @media (max-width: 767px) {
+    .article-detail .box .markdown-body {
+      padding: 15px; } }
+  .article-detail .vote {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0; }
+    .article-detail .vote > div {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: coral;
+      border-radius: 100%;
+      cursor: pointer; }
+      .article-detail .vote > div.hasVote {
+        cursor: default;
+        background-color: dimgray; }
+      .article-detail .vote > div i {
+        font-size: 25px;
+        color: white; }
+      .article-detail .vote > div span {
+        color: white;
+        font-size: 25px;
+        margin-left: 4px; }
+  .article-detail .tag {
+    padding-left: 15px; }
+    .article-detail .tag span {
+      padding: 3px 8px;
+      margin: 0 10px;
+      color: white; }
+      .article-detail .tag span:nth-child(1) {
+        background-color: darkslategrey; }
+      .article-detail .tag span:nth-child(2) {
+        background-color: teal; }
+      .article-detail .tag span:nth-child(3) {
+        background-color: forestgreen; }
+      .article-detail .tag span:nth-child(4) {
+        background-color: olivedrab; }
+      .article-detail .tag span:nth-child(5) {
+        background-color: rosybrown; }
 
-.markdown-body {
+#comment, #comments {
+  padding: 0 15px;
+  margin: 10px 0;
+  color: darkslategray; }
+  #comment > .head, #comments > .head {
+    padding-bottom: 5px;
+    border-bottom: 1px solid darkslategray; }
+    #comment > .head i, #comments > .head i {
+      color: inherit; }
+    #comment > .head span, #comments > .head span {
+      padding-left: 5px;
+      color: inherit; }
+
+#comment form > div {
+  margin-top: 10px;
+  overflow: hidden;
+  position: relative; }
+
+#comment form textarea {
+  display: block;
+  width: 100%;
   box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px; }
+  resize: none; }
 
-@media (max-width: 767px) {
-  .markdown-body {
-    padding: 15px; } }
+#comment form input[type='submit'] {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: darkslategrey;
+  color: white; }
+
+#comments ul.comment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  #comments ul.comment-list li {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px black; }
+    #comments ul.comment-list li .comment-text {
+      margin-top: 5px;
+      font-size: 13px; }
 
 /*# sourceMappingURL=article_detail.css.map */

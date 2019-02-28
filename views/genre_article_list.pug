@@ -16,7 +16,7 @@ block content
     .article-list
       h2= title
       ul
-        each article in article_list
+        each article 
           li
             a(href=article.url) #{article.title}
             | (#{article.author.name})

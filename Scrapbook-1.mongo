@@ -1,0 +1,1 @@
+db.articles.find({ 'title': {$regex: 'mongoose', $option: "$i"} })

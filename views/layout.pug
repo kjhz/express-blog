@@ -17,9 +17,9 @@ html(lang="cn")
         div
           i.fa.fa-id-badge
           span 欢迎访问梁福苹的个人博客
-          if userName
+          if user || admin
             a(href='#')
-              span= userName
+              span= user || admin
             a(href='/logout')
               span 注销
           else
@@ -77,9 +77,9 @@ html(lang="cn")
                   a(href='/message')
                     i.fa.fa-paw
                     span 留言
-          form.search-bar(action="/search", method="post") 
+          form.search-bar(action="/search", method="") 
             div         
-              input(type="text", name="searchValue")
+              input(type="text", name="searchValue",placeholder="搜索。。。")
               button.fa.fa-search(type="submit")
     .container
       block content

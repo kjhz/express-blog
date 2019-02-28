@@ -1,5 +1,4 @@
 var Article = require("../models/article");
-var Author = require("../models/author");
 var Genre = require("../models/genre");
 var User = require("../models/user");
 var ArticleInstance = require("../models/articleInstance");
@@ -28,9 +27,6 @@ exports.index = function (req, res) {
     article_instance_count: function (callback) {
       ArticleInstance.countDocuments({}, callback);
     },
-    author_count: function (callback) {
-      Author.countDocuments({}, callback);
-    },
     genre_count: function (callback) {
       Genre.countDocuments({}, callback);
     },
@@ -40,18 +36,14 @@ exports.index = function (req, res) {
     comment_count: function (callback) {
       Comment.countDocuments({}, callback);
     }, function(err, results) {
-      if (req.session.name) {
-        res.render('index', { title: 'Home', error: err, data: results, userName: req.session.name });
-      } else {
-        res.render('index', { title: 'Home', error: err, data: results })
-      }
+      res.render('index', { title: 'Home', error: err, data: results })
     }
   });
 };
 
 exports.article_list = function (req, res, next) {
   let page = +req.query.page || 1;
-  let limit = 3; //每页显示的文章数量
+  let limit = 8; //每页显示的文章数量
   if (req.query && req.query.genre) {
     Genre.findOne({ 'name': req.query.genre }, function (err, genre) {
       if (err) next(err);
@@ -64,17 +56,18 @@ exports.article_list = function (req, res, next) {
             .skip((page - 1) * limit)
             .limit(limit)
             .sort({ updated: -1 })
-            .populate('author genre')
+            .populate('genre')
             .exec(callback)
         }
-      }, function (err, results) {
-        let count = Math.ceil(results.countDocuments / limit);
+      }, function (err, result) {
+        if (err) return next(err);
+        let count = Math.ceil(result.countDocuments / limit);
         res.render('article_list', {
           title: genre.filter_name,
           genre: genre,
-          article_list: results.articles,
+          article_list: result.articles,
           count: count,
-          page: page
+          page: page,
         });
       });
     });
@@ -88,15 +81,16 @@ exports.article_list = function (req, res, next) {
           .skip((page - 1) * limit)
           .limit(limit)
           .sort({ updated: -1 })
-          .populate('author genre')
+          .populate('genre')
           .exec(callback)
       }
-    }, function (err, results) {
-      let count = Math.ceil(results.countDocuments / limit);
+    }, function (err, result) {
+      let count = Math.ceil(result.countDocuments / limit);
+
       res.render('article_list', {
         title: '文章列表',
-        current: { url: 'articles', name: '文章列表' },
-        article_list: results.articles,
+        current: { url: '/articles?', name: '文章列表' },
+        article_list: result.articles,
         count: count,
         page: page
       });
@@ -105,6 +99,7 @@ exports.article_list = function (req, res, next) {
 };
 
 exports.article_detail = function (req, res, next) {
+  let nickname = req.session.nickname;
   Article.findOne({ _id: req.params.id })
     .populate('genre')
     .exec(function (err, article) {
@@ -112,24 +107,23 @@ exports.article_detail = function (req, res, next) {
       article.views++;
       article.save();
       let title = `${article.title} - ${article.genre[0] && article.genre[0].filter_name || ''} - 梁福苹的个人博客`;
-      res.render('article_detail', { title: title, genre: article.genre[0], current: { url: article.url, name: article.title }, article: article })
+
+      res.render('article_detail', {
+        title: title,
+        genre: article.genre[0],
+        current: { url: article.url, name: article.title },
+        article: article,
+        nickname: nickname
+      })
     })
 };
 
 exports.article_create_get = function (req, res, next) {
-  // Get all authors and genres, which we can use for adding to our book.
-  async.parallel({
-    authors: function (callback) {
-      Author.find(callback);
-    },
-    genres: function (callback) {
-      Genre.find(callback);
-    },
-  }, function (err, results) {
-    if (err) { return next(err); }
-    res.render('article_form', { title: '创建文章', authors: results.authors, genres: results.genres });
-  });
-
+  Genre.find()
+    .exec(function (err, genres) {
+      if (err) { return next(err); }
+      res.render('article_form', { title: '创建文章', genres: genres });
+    });
 };
 
 exports.article_create_post = [
@@ -149,34 +143,30 @@ exports.article_create_post = [
   sanitizeBody('title').trim().escape(),
   (req, res, next) => {
     const errors = validationResult(req);
+    let tag = req.body.tag.filter(a => a); //去除数组空元素
     var article = new Article({
       title: req.body.title,
       author: req.body.author,
       genre: (typeof req.body.genre === 'undefined') ? [] : req.body.genre,
       summary: req.body.summary,
       text: req.body.text,
-      img: req.file
+      img: req.file,
+      tag: tag
     });
 
     if (!errors.isEmpty()) {
       //含有错误，返回错误信息
-      async.parallel({
-        authors: function (callback) {
-          Author.find(callback);
-        },
-        genres: function (callback) {
-          Genre.find(callback);
-        }
-      }, function (err, results) {
-        if (err) return next(err);
+      genre.find()
+        .exec(function (err, genres) {
+          if (err) return next(err);
 
-        for (let i = 0; i < results.genres.length; i++) {
-          if (article.genre.indexOf(results.genres[i]._id) > -1) {
-            results.genres[i].checked = 'true';
+          for (let i = 0; i < results.genres.length; i++) {
+            if (article.genre.indexOf(results.genres[i]._id) > -1) {
+              results.genres[i].checked = 'true';
+            }
           }
-        }
-        res.render('article_form', { title: '创建文章', authors: results.authors, genres: results.genres, article: article, errors: errors.array() });
-      });
+          res.render('article_form', { title: '创建文章', genres: genres, article: article, errors: errors.array() });
+        });
       return;
     } else {
       article.save(function (err) {
@@ -202,10 +192,7 @@ exports.article_delete_post = function (req, res) {
 exports.article_update_get = function (req, res, next) {
   async.parallel({
     article: function (callback) {
-      Article.findById(req.params.id).populate('author').populate('genre').exec(callback);
-    },
-    authors: function (callback) {
-      Author.find(callback);
+      Article.findById(req.params.id).populate('genre').exec(callback);
     },
     genres: function (callback) {
       Genre.find(callback);
@@ -226,7 +213,11 @@ exports.article_update_get = function (req, res, next) {
         }
       }
     }
-    res.render('article_form', { title: '更新文章', authors: results.authors, genres: results.genres, article: results.article });
+    res.render('article_form', {
+      title: '更新文章',
+      genres: results.genres,
+      article: results.article
+    });
   })
 
 };
@@ -261,23 +252,22 @@ exports.article_update_post = [
 
     if (!errors.isEmpty()) {
       //含有错误，返回错误信息
-      async.parallel({
-        authors: function (callback) {
-          Author.find(callback);
-        },
-        genres: function (callback) {
-          Genre.find(callback);
-        }
-      }, function (err, results) {
-        if (err) return next(err);
-        //标记genre
-        for (let i = 0; i < results.genres.length; i++) {
-          if (article.genre.indexOf(results.genres[i]._id) > -1) {
-            results.genres[i].checked = 'true';
+      Genre.find()
+        .exec(function (err, genres) {
+          if (err) return next(err);
+          //标记genre
+          for (let i = 0; i < results.genres.length; i++) {
+            if (article.genre.indexOf(results.genres[i]._id) > -1) {
+              results.genres[i].checked = 'true';
+            }
           }
-        }
-        res.render('article_form', { title: '更新文章', authors: results.authors, genres: results.genres, article: article, errors: errors.array() });
-      });
+          res.render('article_form', {
+            title: '更新文章',
+            genres: genres,
+            article: article,
+            errors: errors.array()
+          });
+        });
       return;
     } else {
       Article.findByIdAndUpdate(req.params.id, article, {}, function (err, article) {
@@ -288,3 +278,29 @@ exports.article_update_post = [
     }
   }
 ]
+
+//meta,用于ajax调用
+exports.article_meta_get = function (req, res, next) {
+  Article.findById(req.params.id)
+    .select('meta')
+    .exec(function (err, article) {
+      if (err) return next(err);
+      res.json(article.meta);
+    })
+}
+
+exports.article_votes_post = function (req, res, next) {
+  Article.findById(req.params.id)
+    .select('meta')
+    .exec(function (err, article) {
+      if (err) return next(err);
+      if (!article.meta.votes) {
+        article.meta.votes = 0;
+      }
+      article.meta.votes++;
+      article.save(function (err) {
+        if (err) return next(err);
+        res.sendStatus(200);
+      })
+    })
+}

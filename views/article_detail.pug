@@ -11,30 +11,96 @@ block maincontent
       span
         i.fa.fa-eye
         = article.views
-      span
-        a.article-delete(href=article.url+`/update`) 更新&nbsp;
+      if admin
+        span
+          a.article-delete(href=article.url+`/update`) 更新&nbsp;
     .box
       header
         h3= article.title
       article.markdown-body
         != article.marked_text
+    .vote
       div
-        span 评论
-        span
-          i.fa.fa-thumbs-up
-          span 赞
-          span 0
-        span 分享
-    div
-      div
-        span 上一篇：
-        a(href='') 上一篇文章
-      div
-        span 下一篇：
-        a(href='') 下一篇文章
-    .comment
-      div
-        i.fa.fa-pen
-        span 发表评论
+        i.fa.fa-thumbs-up
+        span.votes= article.meta.votes
+    script.
+      $('.vote div').click(function() {
+        $(this).addClass('hasVote').unbind('click');
+        let num = $('.votes').text() || '0';
+        $('.votes').text(++num);
+        $.post(window.location.pathname+'/votes');
+      });
 
-    
+      (function getVotes() {    
+        $.get(window.location.pathname+'/meta', function(data){
+
+          $('.votes').text(data.votes);
+        });
+      })()
+    .tag
+      = '标签：'
+      each val in article.tag
+        span= val
+      else
+        = "未添加标签"
+    #comment
+      div.head
+        i.fa.fa-pencil
+        span 发表评论
+      form(action=`${article.url}/comment`, method="post")
+        div
+          input(type="text", name="nickname",require, placeholder='昵称（必填）', value=nickname===undefined ? '' : nickname)
+        div
+          textarea(name="comment",  cols="50", rows="5", required)
+        div
+          input(type="submit" value='提交') 
+    #comments
+      div.head
+        i.fa.fa-comment
+        span 评论列表
+      div.box
+    script.
+      $('#comment form').submit(function(e){
+        e.preventDefault();
+        let data = $(this).serializeArray();
+        let url = window.location.pathname+'/comment_create';
+        $('#comment input[type="submit"]')[0].disabled = true;
+        $.ajax(url,{
+          type: 'post',
+          data: data
+        }).done(function(){
+          $('#comment textarea')[0].value = null;
+          $('#comment input[type="submit"]')[0].disabled = false;
+          getComments();
+        });
+      });
+      
+      getComments();
+      function getComments(){
+        $.getJSON(window.location.pathname+'/comments', function(comments) {
+          var items = [];
+          for (let i=0; i<comments.length; i++) {
+            let date = new Date(comments[i].date);
+            let month = date.getMonth(),
+              day = date.getDate();
+            items.push(
+              `<li>
+                <div>
+                  <span>${comments[i].nickname}<span>
+                  <span>${month}月${day}日</span>
+                </div>
+                <div class="comment-text">
+                  ${comments[i].comment}
+                </div>
+              </li>`
+            );
+          }
+          let htmlstr = $('<ul/>', {
+            'class': 'comment-list',
+            html: items.join('')
+          });
+          $('#comments .box').html(htmlstr);
+        });
+      }
+      
+              
