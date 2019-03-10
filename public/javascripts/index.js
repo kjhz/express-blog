@@ -128,60 +128,81 @@ $(document).ready(function () {
     scrollAction.y = window.pageYOffset;
   }
 
-  //ajax获得侧边栏需要的数据
-  $.getJSON('/api/article_list_latest', function (data) {
-    let html = [];
-    for (let i = 0; i < data.length; i++) {
-      let date = new Date(data[i].updated);
-      let month = date.getMonth(),
-        day = date.getDate();
+  //ajax获得最新文章列表，并缓存
+  if (sessionStorage.article_list_latest) {
+    $('#latestArticle ul').html(sessionStorage.article_list_latest);
+  } else {
+    $.getJSON('/api/article_list_latest', function (data) {
+      let content = [];
+      for (let i = 0; i < data.length; i++) {
+        let date = new Date(data[i].updated);
+        let month = date.getMonth(),
+          day = date.getDate();
 
-      html.push(`
-        <li>
-          <a href='/article/${data[i]._id}'>
-            <span class='date'>${day}/${month}</span>
-            <span class='title'>${data[i].title}</span>
-          </a>
-        </li>
-      `)
-    }
-    $('#latestArticle ul').html(html);
-  });
-
-  $.getJSON('/api/counts', function (data) {
-    $('#articleNum .num').text(data.article_count);
-    $('#likesNum .num').text(data.votes_count);
-  });
-
-  $.getJSON('/api/tags', function (data) {
-    let html = [];
-    let tags = sortObj(JSON.parse(data));
-
-    function sortObj(obj) {
-      var arr = [];
-      for (var i in obj) {
-        arr.push([obj[i], i]);
-      };
-      arr.sort(function (a, b) {
-        return b[0] - a[0];
-      });
-      var len = arr.length,
-        obj = {};
-      for (var i = 0; i < len; i++) {
-        obj[arr[i][1]] = arr[i][0];
+        content.push(`
+          <li>
+            <a href='/article/${data[i]._id}'>
+              <span class='date'>${day}/${month}</span>
+              <span class='title'>${data[i].title}</span>
+            </a>
+          </li>
+        `)
       }
-      return obj;
-    }
+      sessionStorage.article_list_latest = content;
+      $('#latestArticle ul').html(content);
+    });
+  }
 
-    for (x in tags) {
-      html.push(`
-        <li>
-          <a href='/search?searchType=3&searchValue=${x}'>
-            <span>${x}</span>
-          </a>
-        </li>
-      `)
-    } 
-    $('.mapTags').html(html);
-  })
+  if (sessionStorage.counts) {
+    $('#articleNum .num').text(sessionStorage.counts.article_count);
+    $('#likesNum .num').text(sessionStorage.counts.votes_count);
+  } else {
+    $.getJSON('/api/counts', function (data) {
+      sessionStorage.counts = { article_count: data.article_count, votes_count: data.votes_count };
+      console.log(sessionStorage.counts);
+      $('#articleNum .num').text(data.article_count);
+      $('#likesNum .num').text(data.votes_count);
+    });
+  }
+
+  if (sessionStorage.tags) {
+    $('.mapTags').html(sessionStorage.tags);
+  } else {
+    $.getJSON('/api/tags', function (data) {
+      let content = [];
+      let tags = sortObj(JSON.parse(data));
+
+      function sortObj(obj) {
+        var arr = [];
+        for (var i in obj) {
+          arr.push([obj[i], i]);
+        };
+        arr.sort(function (a, b) {
+          return b[0] - a[0];
+        });
+        var len = arr.length,
+          obj = {};
+        for (var i = 0; i < len; i++) {
+          obj[arr[i][1]] = arr[i][0];
+        }
+        return obj;
+      }
+
+      let i = 0;
+      for (x in tags) {
+        if (i < 20) {
+          content.push(`
+            <li>
+              <a href='/search?searchType=3&searchValue=${x}'>
+                <span>${x}</span>
+              </a>
+            </li>
+          `);
+          i++;
+        }
+      }
+      sessionStorage.tags = content;
+      $('.mapTags').html(content);
+    })
+  }
 });
