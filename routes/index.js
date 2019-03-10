@@ -22,6 +22,8 @@ router.post('/login', admin_controller.login_post);
 
 router.get('/logout', admin_controller.logout_get);
 
+//
+router.get('/signin', user_controller.user_create_get);
 
 /// GENRE ROUTES ///
 

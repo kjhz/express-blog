@@ -1,19 +1,21 @@
-extends layout
+extends layoutWithSidebar.pug
+append head
+  link(href="/stylesheets/article_list.css", rel="stylesheet")
 
-block content
-  h1= title
-  p Welcome to #{title} #[em #{userName}]
-  p= userName
-  h1 content
+ 
+prepend sidebar
+  if admin 
+    .widget
+      ul
+        li
+          a(href='/genre') 分类列表
+        li
+          a(href='/articles') 文章列表
+        li
+          a(href='/article/create') 创建新文章
+        li
+          a(href='/genre/create') 创建新分类
 
-  ul
-    li
-      a(href='/genre') 分类目录
-    li
-      a(href='/articles') 文章列表
-    li
-      a(href='/article/create') 创建新文章
-    li
-      a(href='/genre/create') 创建新分类
-    li
-      a(href='/')
+block maincontent
+  .article-list
+    include components/article_list_component.pug

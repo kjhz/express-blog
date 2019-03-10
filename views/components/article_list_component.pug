@@ -1,6 +1,6 @@
 
 .head
-  h2= title
+  h2= defaultTitle ? '最新文章' : title
   if admin
     a.plus(href="/article/create")
       i.fa.fa-plus
@@ -41,3 +41,5 @@ ul.list
               #[i.fa.fa-comment]
               #{`${article.commentsLength}个评论`}
             a.read-more(href=article.url) 阅读全文
+  else
+    span 未找到相关内容

@@ -21,7 +21,7 @@ var upload = multer({ storage: storage });
 
 exports.article_list = function (req, res, next) {
   let page = +req.query.page || 1;
-  let limit = 8; //每页显示的文章数量
+  let limit = 5; //每页显示的文章数量
   if (req.query && req.query.genre) {
     Genre.findOne({ 'name': req.query.genre }, function (err, genre) {
       if (err) next(err);

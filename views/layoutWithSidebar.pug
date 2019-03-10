@@ -1,19 +1,20 @@
 extends layout.pug
 
 block content
-  .nav-crumbs
-    span 当前位置：
-    i.fa.fa-home
-    span
-      a(href='/') 首页
-    if genre
-      i.fa.fa-angle-right
+  if showNav
+    .nav-crumbs
+      span 当前位置：
+      i.fa.fa-home
       span
-        a(href=`/articles?genre=${genre.name}`)= genre.filter_name
-    if current
-      i.fa.fa-angle-right
-      span
-        a(href=current.url)= current.name
+        a(href='/') 首页
+      if genre
+        i.fa.fa-angle-right
+        span
+          a(href=`/articles?genre=${genre.name}`)= genre.filter_name
+      if current
+        i.fa.fa-angle-right
+        span
+          a(href=current.url)= current.name
   .main
     block maincontent 
     .sidebar
@@ -37,9 +38,9 @@ block content
                 a#likesNum  
                   span 喜欢
                   span.num 
-        .widget 
-          #latestArticle
-            .topLatestArticle
+        .widget
+          .box
+            .boxTop
               i.fa.fa-list-alt
-              div 最新文章
-            ul.botLatestArticle
+              div 标签
+            ul.mapTags

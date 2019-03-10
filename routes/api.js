@@ -15,4 +15,7 @@ router.get('/article_list_latest', index_controller.article_list_latest);
 //获取总数值， votes_count 和 article_count
 router.get('/counts', index_controller.counts);
 
+//获取使用较多的标签
+router.get('/tags', index_controller.tags)
+
 module.exports = router;

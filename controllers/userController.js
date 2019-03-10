@@ -9,7 +9,7 @@ exports.user_detail = function(req, res) {
 };
 
 exports.user_create_get = function(req, res) {
-  res.send("user create get");
+  res.send("暂未开发注册");
 };
 
 exports.user_create_post = function(req, res) {

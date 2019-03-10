@@ -5,11 +5,11 @@ html(lang="cn")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     style
       include ./login.css
-    title 管理员登录
+    title 登录
   body
     .admin
       form(method="post")
-        h3 登录后台管理
+        h3 登录
         div
           label(for="name") 账号名：
           input(type="text", name='name' ,required, value=(name===undefined ? '' : name))

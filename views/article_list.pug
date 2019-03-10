@@ -7,3 +7,10 @@ block maincontent
   .article-list
     include components/article_list_component.pug
     include components/pagination_component.pug
+append sidebar
+  .widget 
+    .box#latestArticle
+      .boxTop.topLatestArticle
+        i.fa.fa-list-alt
+        div 最新文章
+      ul.boxBottom.botLatestArticle

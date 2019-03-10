@@ -129,9 +129,9 @@ $(document).ready(function () {
   }
 
   //ajax获得侧边栏需要的数据
-  $.getJSON('/api/article_list_latest',function(data) {
-    let html=[];
-    for (let i=0; i<data.length; i++) {
+  $.getJSON('/api/article_list_latest', function (data) {
+    let html = [];
+    for (let i = 0; i < data.length; i++) {
       let date = new Date(data[i].updated);
       let month = date.getMonth(),
         day = date.getDate();
@@ -148,8 +148,40 @@ $(document).ready(function () {
     $('#latestArticle ul').html(html);
   });
 
-  $.getJSON('/api/counts', function(data) {
+  $.getJSON('/api/counts', function (data) {
     $('#articleNum .num').text(data.article_count);
     $('#likesNum .num').text(data.votes_count);
   });
+
+  $.getJSON('/api/tags', function (data) {
+    let html = [];
+    let tags = sortObj(JSON.parse(data));
+
+    function sortObj(obj) {
+      var arr = [];
+      for (var i in obj) {
+        arr.push([obj[i], i]);
+      };
+      arr.sort(function (a, b) {
+        return b[0] - a[0];
+      });
+      var len = arr.length,
+        obj = {};
+      for (var i = 0; i < len; i++) {
+        obj[arr[i][1]] = arr[i][0];
+      }
+      return obj;
+    }
+
+    for (x in tags) {
+      html.push(`
+        <li>
+          <a href='/search?searchType=3&searchValue=${x}'>
+            <span>${x}</span>
+          </a>
+        </li>
+      `)
+    } 
+    $('.mapTags').html(html);
+  })
 });
