@@ -231,8 +231,47 @@ footer {
   box-shadow: 0 0 3px darkgrey;
   border: 1px solid #999;
   position: relative; }
+  .widget ul {
+    list-style-type: none; }
+  .widget a {
+    text-decoration: none;
+    color: black; }
+    .widget a:hover {
+      color: lightblue; }
   .widget:not(:first-of-type) {
     margin-top: 20px; }
+  .widget .box .boxTop {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #999; }
+    .widget .box .boxTop i {
+      padding: 10px;
+      margin-right: 10px;
+      border-right: 1px solid #999;
+      color: lightblue; }
+  .widget .box .boxBottom {
+    margin: 0;
+    padding: 0 15px; }
+  .widget .box ul.botLatestArticle {
+    list-style-type: none; }
+    .widget .box ul.botLatestArticle li:not(:last-of-type) {
+      border-bottom: 1px dashed #999; }
+    .widget .box ul.botLatestArticle li a {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      text-decoration: none;
+      color: black;
+      font-weight: 500; }
+      .widget .box ul.botLatestArticle li a:hover {
+        color: brown; }
+        .widget .box ul.botLatestArticle li a:hover span.date {
+          background-color: brown;
+          color: white; }
+      .widget .box ul.botLatestArticle li a span.date {
+        padding: 5px 10px;
+        background-color: #999;
+        margin-right: 15px; }
 
 #author .topAuthor {
   display: flex;
@@ -282,38 +321,43 @@ footer {
     #author .botAuthor > a a#likesNum {
       cursor: text; }
 
-#latestArticle .topLatestArticle {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #999; }
-  #latestArticle .topLatestArticle i {
-    padding: 10px;
-    margin-right: 10px;
-    border-right: 1px solid #999; }
-  #latestArticle .topLatestArticle div {
-    display: block; }
-
-#latestArticle ul.botLatestArticle {
-  margin: 0;
-  padding: 0 15px;
-  list-style-type: none; }
-  #latestArticle ul.botLatestArticle li:not(:last-of-type) {
-    border-bottom: 1px dashed #999; }
-  #latestArticle ul.botLatestArticle li a {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    text-decoration: none;
-    color: black;
-    font-weight: 500; }
-    #latestArticle ul.botLatestArticle li a:hover {
-      color: brown; }
-      #latestArticle ul.botLatestArticle li a:hover span.date {
-        background-color: brown;
-        color: white; }
-    #latestArticle ul.botLatestArticle li a span.date {
-      padding: 5px 10px;
-      background-color: #999;
-      margin-right: 15px; }
+ul.mapTags {
+  padding: 0; }
+  ul.mapTags li {
+    display: inline-flex;
+    margin: 7px; }
+    ul.mapTags li a {
+      padding: 7px;
+      font-size: 14px; }
+    ul.mapTags li:nth-child(5n) a {
+      background-color: khaki;
+      color: coral; }
+      ul.mapTags li:nth-child(5n) a:hover {
+        background-color: lightseagreen;
+        color: indigo; }
+    ul.mapTags li:nth-child(5n+1) a {
+      background-color: #2d3237;
+      color: white; }
+      ul.mapTags li:nth-child(5n+1) a:hover {
+        background-color: #999;
+        color: #2d3237; }
+    ul.mapTags li:nth-child(5n+2) a {
+      background-color: brown;
+      color: darkgrey; }
+      ul.mapTags li:nth-child(5n+2) a:hover {
+        background-color: darksalmon;
+        color: darkviolet; }
+    ul.mapTags li:nth-child(5n+3) a {
+      background-color: indianred;
+      color: lightgray; }
+      ul.mapTags li:nth-child(5n+3) a:hover {
+        background-color: orangered;
+        color: khaki; }
+    ul.mapTags li:nth-child(5n+4) a {
+      background-color: teal;
+      color: chocolate; }
+      ul.mapTags li:nth-child(5n+4) a:hover {
+        background-color: goldenrod;
+        color: linen; }
 
 /*# sourceMappingURL=style.css.map */

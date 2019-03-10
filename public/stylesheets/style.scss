@@ -295,8 +295,64 @@ footer {
   box-shadow: 0 0 3px darkgrey;
   border: 1px solid $border-color;
   position: relative;
+  ul {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    &:hover {
+      color: $active-color;
+    }
+  }
   &:not(:first-of-type) {
     margin-top: 20px;
+  }
+  .box {
+    .boxTop {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid $border-color;
+      i {
+        padding: 10px;
+        margin-right: 10px;
+        border-right: 1px solid $border-color;
+        color: $active-color;
+      }
+    }
+    .boxBottom {
+      margin: 0;
+      padding: 0 15px;
+    }
+    ul.botLatestArticle {
+      list-style-type: none;
+      li {
+        &:not(:last-of-type) {
+          border-bottom: 1px dashed $border-color;
+        }
+        a {
+          display: flex;
+          align-items: center;
+          padding: 8px;
+          text-decoration: none;
+          color: black;
+          font-weight: 500;
+          &:hover {
+            color: brown;
+            span.date {
+              background-color: brown;
+              color: white;
+            }
+          }
+          span.date {
+            padding: 5px 10px;
+            background-color: #999;
+            margin-right: 15px;
+            
+          }
+        }
+      }
+    }
   }
 }
 
@@ -362,47 +418,62 @@ footer {
   }
 }
 
-#latestArticle {
-  .topLatestArticle {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid $border-color;
-    i {
-      padding: 10px;
-      margin-right: 10px;
-      border-right: 1px solid $border-color;
+ul.mapTags {
+  padding: 0;
+  li {
+    display: inline-flex;
+    margin: 7px;
+    a {
+      padding: 7px;
+      font-size: 14px;
     }
-    div {
-      display: block;
-    }
-  }
-  ul.botLatestArticle {
-    margin: 0;
-    padding: 0 15px;
-    list-style-type: none;
-    li {
-      &:not(:last-of-type) {
-        border-bottom: 1px dashed $border-color;
-      }
+    &:nth-child(5n){
       a {
-        display: flex;
-        align-items: center;
-        padding: 8px;
-        text-decoration: none;
-        color: black;
-        font-weight: 500;
+        background-color: khaki;
+        color: coral;
+            &:hover {
+              background-color: lightseagreen;
+              color: indigo;
+            }
+      }
+    }
+    &:nth-child(5n+1){
+      a {
+        background-color: #2d3237;
+        color: white;
         &:hover {
-          color: brown;
-          span.date {
-            background-color: brown;
-            color: white;
-          }
-        }
-        span.date {
-          padding: 5px 10px;
           background-color: #999;
-          margin-right: 15px;
-          
+          color: #2d3237;
+        }
+      }
+    }
+    &:nth-child(5n+2) {
+      a {
+        background-color: brown;
+        color: darkgrey;
+        &:hover {
+          background-color: darksalmon;
+          color: darkviolet;
+        }
+      }
+    }
+    &:nth-child(5n+3) {
+      a {
+        background-color: indianred;
+        color: lightgray;
+        &:hover {
+          background-color: orangered;
+          color: khaki;
+        }
+      }
+    }
+    &:nth-child(5n+4) {
+      a {
+        background-color: teal;
+        color: chocolate;
+        &:hover {
+          background-color: goldenrod;
+          color: linen;
         }
       }
     }

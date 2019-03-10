@@ -19,28 +19,6 @@ var storage = multer.diskStorage({
 })
 var upload = multer({ storage: storage });
 
-exports.index = function (req, res) {
-  async.parallel({
-    article_count: function (callback) {
-      Article.countDocuments({}, callback);
-    },
-    article_instance_count: function (callback) {
-      ArticleInstance.countDocuments({}, callback);
-    },
-    genre_count: function (callback) {
-      Genre.countDocuments({}, callback);
-    },
-    user_count: function (callback) {
-      User.countDocuments({}, callback);
-    },
-    comment_count: function (callback) {
-      Comment.countDocuments({}, callback);
-    }, function(err, results) {
-      res.render('index', { title: 'Home', error: err, data: results })
-    }
-  });
-};
-
 exports.article_list = function (req, res, next) {
   let page = +req.query.page || 1;
   let limit = 8; //每页显示的文章数量
@@ -68,6 +46,7 @@ exports.article_list = function (req, res, next) {
           article_list: result.articles,
           count: count,
           page: page,
+          showNav: true
         });
       });
     });
@@ -92,7 +71,8 @@ exports.article_list = function (req, res, next) {
         current: { url: '/articles?', name: '文章列表' },
         article_list: result.articles,
         count: count,
-        page: page
+        page: page,
+        showNav: true
       });
     });
   }
@@ -113,7 +93,8 @@ exports.article_detail = function (req, res, next) {
         genre: article.genre[0],
         current: { url: article.url, name: article.title },
         article: article,
-        nickname: nickname
+        nickname: nickname,
+        showNav: true
       })
     })
 };
@@ -240,6 +221,7 @@ exports.article_update_post = [
   sanitizeBody('title').trim().escape(),
   (req, res, next) => {
     const errors = validationResult(req);
+    let tag = req.body.tag.filter(a => a); //去除数组空元素
     var article = new Article({
       title: req.body.title,
       author: req.body.author,
@@ -247,6 +229,7 @@ exports.article_update_post = [
       summary: req.body.summary,
       text: req.body.text,
       img: req.file,
+      tag: tag,
       _id: req.params.id //这是必须的， 否则会创建新的ID
     });
 
