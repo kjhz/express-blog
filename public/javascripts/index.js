@@ -158,8 +158,8 @@ $(document).ready(function () {
     $('#likesNum .num').text(sessionStorage.counts.votes_count);
   } else {
     $.getJSON('/api/counts', function (data) {
-      sessionStorage.counts = { article_count: data.article_count, votes_count: data.votes_count };
-      console.log(sessionStorage.counts);
+      sessionStorage.counts.article_count = data.article_count;
+      sessionStorage.counts.votes_count = data.votes_count;
       $('#articleNum .num').text(data.article_count);
       $('#likesNum .num').text(data.votes_count);
     });
