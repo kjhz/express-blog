@@ -12,10 +12,9 @@ var apiRouter = require('./routes/api');
 var compression = require('compression')
 var helmet = require('helmet');
 var app = express();
+var mymongodb = require('./mongodb');
 
-
-var mongoDB = process.env.MONGODB_URI || "mongodb://guest1:guest1@ds139775.mlab.com:39775/blog";
-
+var mongoDB = process.env.MONGODB_URI || mymongodb || "mongodb://guest1:guest1@ds139775.mlab.com:39775/blog";
 //Set up mongoose connection
 var mongoose = require('mongoose');
 mongoose.connect(mongoDB, { useNewUrlParser: true });

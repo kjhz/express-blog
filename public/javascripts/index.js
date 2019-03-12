@@ -154,14 +154,17 @@ $(document).ready(function () {
   }
 
   if (sessionStorage.counts) {
-    $('#articleNum .num').text(sessionStorage.counts.article_count);
-    $('#likesNum .num').text(sessionStorage.counts.votes_count);
+    $('#articleNum .num').text(sessionStorage.article_count);
+    $('#likesNum .num').text(sessionStorage.votes_count);
   } else {
     $.getJSON('/api/counts', function (data) {
-      sessionStorage.counts.article_count = data.article_count;
-      sessionStorage.counts.votes_count = data.votes_count;
-      $('#articleNum .num').text(data.article_count);
-      $('#likesNum .num').text(data.votes_count);
+      const d = JSON.parse(data)
+      let articles = d.article_count,
+        votes = d.votes_count;
+      sessionStorage.article_count = articles;
+      sessionStorage.votes_count = votes;
+      $('#articleNum .num').text(articles);
+      $('#likesNum .num').text(votes);
     });
   }
 

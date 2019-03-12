@@ -125,10 +125,11 @@ exports.counts = function (req, res, next) {
     if (err) return next(err);
     let count_votes = results.votes.map(el => el.meta.votes)
       .reduce((a, b) => a + b, 0);
-    res.json({
+    let data = {
       article_count: results.count_articles,
       votes_count: count_votes
-    });
+    }
+    res.json(JSON.stringify(data));
   })
 }
 
