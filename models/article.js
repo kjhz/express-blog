@@ -16,8 +16,8 @@ var ArticleSchema = new Schema({
   }],
   hidden: Boolean,
   meta: {
-    votes: Number,
-    favs: Number
+    votes: {type: Number, default: 0},
+    favs: {type: Number, default: 0}
   },
   updated: { type: Date, default: Date.now },
   img: {
