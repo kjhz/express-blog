@@ -6,6 +6,9 @@ var GenreSchema = new Schema({
   article: { type: Schema.ObjectId, ref: 'Article' },
   name: { type: String, max: 20, required: true },
   nameCN: { type: String, max: 20},
+  list: { type: Number, default: 0},
+  weight: { type: Number, default: 0},
+  fontawsome: { type: String}
 });
 
 GenreSchema

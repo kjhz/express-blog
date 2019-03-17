@@ -17,5 +17,4 @@ block content
   ul
     each genre in data
       li
-        a(href=genre.url) #{genre.name && genre.nameCN} &nbsp;
-        a.delete(href=`genre/${genre._id}/delete`) 删除
+        a(href=genre.url)=  genre.nameCN || genre.name

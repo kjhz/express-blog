@@ -22,6 +22,16 @@ exports.index = function (req, res) {
     });
 };
 
+//导航栏目录
+exports.index_catalog = function (req, res, next) {
+  Genre.find()
+    .sort('list weight')
+    .exec(function (err, genres) {
+      res.locals.catalog = genres;
+      next();
+    })
+};
+
 exports.search_get = [
   body('searchValue', 'Title must not be empty.').isLength({ min: 1 }).trim(),
   sanitizeBody('searchValue').trim().escape(),
@@ -136,11 +146,11 @@ exports.counts = function (req, res, next) {
 exports.tags = function (req, res) {
   Article.find({})
     .select('tag')
-    .exec(function(err,data){
-      let newData={};
-      for (let i=0; i< data.length; i++) {
+    .exec(function (err, data) {
+      let newData = {};
+      for (let i = 0; i < data.length; i++) {
         let tags = data[i].tag;
-        for (let j=0; j < tags.length; j++) {
+        for (let j = 0; j < tags.length; j++) {
           let tag = tags[j];
           newData[tag] ? ++newData[tag] : newData[tag] = 1;
         }

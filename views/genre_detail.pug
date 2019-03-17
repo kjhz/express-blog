@@ -1,0 +1,17 @@
+extends layout
+
+
+block content
+    p= '名称：'+genre.filter_name
+    p= '所属列：'+genre.list
+    p= '权重：'+genre.weight
+    p 图标：
+        i.fa(class=genre.fontawsome)
+    div
+        a(href=`/articles?genre=${genre.name}`) 查看相关文章
+    div
+        a(href=`./${genre.id}/update`) 更新
+    div
+        a(href=`./${genre.id}/delete`) 删除
+    div
+        a(href='/genre') 返回列表

@@ -35,48 +35,30 @@ html(lang="cn")
             i.fa.fa-bars
           #nav-search
             i.fa.fa-search
-          ul.nav-catalog
+          ul.nav-catalog 
             li
               a(href='/') 
                 i.fa.fa-home
                 span 首页
-            li.dropdown
-              a(href='/articles?genre=log')
-                i.fa.fa-edit
-                span 日志
-              ul.dropdown-menu
-                li
-                  a(href='/articles?genre=life')
-                    i.fa.fa-grav
-                    span 生活
-                li
-                  a(href='/articles?genre=news')
-                    i.fa.fa-internet-explorer
-                    span 资讯
-            li.dropdown
-              a(href='/articles?genre=frontweb')
-                i.fa.fa-binoculars
-                span 前端
-              ul.dropdown-menu
-                li
-                  a(href='/articles?genre=frame')
-                    span 架构
-                li
-                  a(href='/articles?genre=database')
-                    span 数据库
-            li.dropdown
-              a(href='/about')
-                i.fa.fa-map-pin
-                span 关于
-              ul.dropdown-menu
-                li
-                  a(href='/about')
-                    i.fa.fa-address-book
-                    span 博主
-                li
-                  a(href='/message')
-                    i.fa.fa-paw
-                    span 留言
+            -var Li;
+            each val, index in catalog
+              if Li != val.list
+                - Li = val.list 
+                li.dropdown
+                  a(href=`/articles?genre=${val.name}`)
+                    if val.fontawsome
+                      i.fa(class=val.fontawsome)
+                    span= val.filter_name
+                  ul.dropdown-menu
+                    -var i=index+1;
+                    while catalog[i] && catalog[i].list==Li
+                      - var genre = catalog[i]
+                      li
+                        a(href=`/articles?genre=${genre.name}`)
+                          if genre.fontawsome
+                            i.fa(class=genre.fontawsome)
+                          span= genre.filter_name
+                          - i++
           form.search-bar(action="/search", method="") 
             div         
               input(type="text", name="searchValue",placeholder="搜索...")

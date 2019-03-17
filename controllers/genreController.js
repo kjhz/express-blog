@@ -6,38 +6,19 @@ const { sanitizeBody } = require('express-validator/filter');
 
 exports.genre_list = function (req, res, next) {
     Genre.find()
-        .sort([['name', 'ascending']])
         .exec(function (err, list_genre) {
             if (err) return next(err);
             res.render('list', { title: '分类列表', data: list_genre });
         })
 };
 
-exports.genre_article_list = function (req, res, next) {
-    async.parallel({
-        genre: function (callback) {
-            Genre.findById(req.params.id)
-                .exec(callback);
-        },
-        articles: function (callback) {
-            Article.find({ 'genre': req.params.id })
-                .populate('genre')
-                .exec(callback);
-        }
-    }, function (err, results) {
-        if (err) { return next(err); }
-        if (results.genre == null) { // No results.
-            var err = new Error('Genre not found');
-            err.status = 404;
-            return next(err);
-        }
-        // Successful, so render
-        res.render('article_list', { 
-            title: results.genre.filter_name,
-            genre: results.genre,
-            article_list: results.articles
-        });
-    });
+exports.genre_detail = function (req, res, next) {
+    Genre.findById(req.params.id)
+        .exec(function (err, genre) {
+            console.log(genre)
+            if (err) return next(err);
+            res.render('genre_detail', { title: '分类详情', genre: genre })
+        })
 };
 
 exports.genre_create_get = function (req, res) {
@@ -49,11 +30,12 @@ exports.genre_create_post = [
     sanitizeBody('name nameCN').trim().escape(),
     (req, res, next) => {
         const errors = validationResult(req);
-        console.log(req.body.name);
         var genre = new Genre({
             name: req.body.name,
-            nameCN: req.body.nameCN
-
+            nameCN: req.body.nameCN,
+            list: req.body.list,
+            weight: req.body.weight,
+            fontawsome: req.body.fontawsome
         });
         if (!errors.isEmpty()) {
             //含有错误，重新渲染表格并输出错误消息
@@ -90,9 +72,26 @@ exports.genre_delete_post = function (req, res) {
 };
 
 exports.genre_update_get = function (req, res) {
-    res.send('NOT IMPLEMENTED: Genre update GET');
+    Genre.findById(req.params.id)
+        .exec(function (err, genre) {
+            if (err) return next(err);
+            res.render('genre_form', { title: '修改分类信息', genre: genre })
+        })
 };
 
-exports.genre_update_post = function (req, res) {
-    res.send('NOT IMPLEMENTED: Genre update POST');
+exports.genre_update_post = function (req, res, next) {
+    console.log(req.body.weight)
+    var genre = new Genre({
+        name: req.body.name,
+        nameCN: req.body.nameCN,
+        list: req.body.list,
+        weight: req.body.weight,
+        fontawsome: req.body.fontawsome,
+        _id:req.params.id
+    });
+    console.log(genre)
+    Genre.findByIdAndUpdate(req.params.id, genre, {}, function(err,genre) {
+        if (err) return next(err);
+        res.redirect(genre.url);
+    })
 };
