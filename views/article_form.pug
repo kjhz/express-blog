@@ -31,7 +31,7 @@ block content
     div.editor
       textarea(name="text")!= undefined===article ? '' : article.text
     div
-      input(type='file' name='img')
+      input(type='file' name='img' )
     div
       label 标签：
         input(type='text', name='tag',value= undefined===article ? '' : article.tag[0])
