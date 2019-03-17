@@ -220,17 +220,20 @@ exports.article_update_post = [
   body('title', 'Title must not be empty.').isLength({ min: 1 }).trim(),
   sanitizeBody('title').trim().escape(),
   (req, res, next) => {
+    //取回原先的数据
     Article.findById(req.params.id)
-      .select('img')
-      .exec(function (err, article_img) {
-        req.body.img = article_img.img;
+      .select('img comments meta views')
+      .exec(function (err, article) {
+        if (err) return next(err);
+        req.body.img = article.img;
+        req.body.comments = article.comments,
+        req.body.meta = article.meta,
+        req.body.views = article.views;
         next();
       })
   }
   ,
   (req, res, next) => {
-
-    console.log(req.file, req.body.img)
     const errors = validationResult(req);
     let tag = req.body.tag.filter(a => a); //去除数组空元素
     var article = new Article({
@@ -241,6 +244,9 @@ exports.article_update_post = [
       text: req.body.text,
       img: req.file || req.body.img,
       tag: tag,
+      comments: req.body.comments,
+      meta: req.body.meta,
+      views: req.body.views,
       _id: req.params.id //这是必须的， 否则会创建新的ID
     });
 
