@@ -75,10 +75,12 @@ $(document).ready(function () {
 
   $('#nav-search').click(function (event) {
     event.stopPropagation();
+    event.preventDefault();
     $('.search-bar').slideToggle(200);
   });
   $('#nav-button').click(function (e) {
     event.stopPropagation();
+    event.preventDefault();
     $('.nav-catalog').slideToggle(200);
   });
 
