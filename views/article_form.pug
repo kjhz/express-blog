@@ -1,8 +1,7 @@
 extends layout
 append head
   link(href="http://lab.lepture.com/editor/editor.css",  type="text/css" rel="stylesheet")
-  script(src="http://lab.lepture.com/editor/editor.js" )
-  script(src="http://lab.lepture.com/editor/marked.js" )
+
   style.
     .editor {
       width: 100%;
@@ -11,6 +10,9 @@ append head
     textarea {
       width: 100%;
     }
+append footer
+  script(src="http://lab.lepture.com/editor/editor.js" )
+  script(src="http://lab.lepture.com/editor/marked.js" )
 block content
   h1= title
 

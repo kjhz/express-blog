@@ -7,8 +7,6 @@ html(lang="cn")
       meta(name='viewport', content='width=device-width, initial-scale=1')
       link(rel="stylesheet"  type="text/css" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css")
       link(rel='stylesheet', type="text/css" href='/stylesheets/style.css')
-      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
-      script(src='/javascripts/index.js' )
   body
     header
       .container.top-header
@@ -66,6 +64,7 @@ html(lang="cn")
     .container
       block content
     footer
+      block footer
       .container
         ul
           li
@@ -79,4 +78,5 @@ html(lang="cn")
           i.fa.fa-copyright 
           | &nbsp;by&nbsp;
           a(href="#") liangfuping
-
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+      script(src='/javascripts/index.js' )
