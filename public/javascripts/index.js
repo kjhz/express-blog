@@ -133,20 +133,20 @@ $(document).ready(function () {
     $('#latestArticle ul').html(sessionStorage.article_list_latest);
   } else {
     $.getJSON('/api/article_list_latest', function (data) {
-      let content = [];
+      let content='';
       for (let i = 0; i < data.length; i++) {
         let date = new Date(data[i].updated);
         let month = date.getMonth(),
           day = date.getDate();
 
-        content.push(`
+        content += `
           <li>
             <a href='/article/${data[i]._id}'>
               <span class='date'>${day}/${month}</span>
               <span class='title'>${data[i].title}</span>
             </a>
           </li>
-        `)
+        `
       }
       sessionStorage.article_list_latest = content;
       $('#latestArticle ul').html(content);
@@ -172,7 +172,7 @@ $(document).ready(function () {
     $('.mapTags').html(sessionStorage.tags);
   } else {
     $.getJSON('/api/tags', function (data) {
-      let content = [];
+      let content='';
       let tags = sortObj(JSON.parse(data));
 
       function sortObj(obj) {
@@ -194,13 +194,13 @@ $(document).ready(function () {
       let i = 0;
       for (x in tags) {
         if (i < 20) {
-          content.push(`
+          content += `
             <li>
               <a href='/search?searchType=3&searchValue=${x}'>
                 <span>${x}</span>
               </a>
             </li>
-          `);
+          `;
           i++;
         }
       }

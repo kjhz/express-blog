@@ -74,6 +74,7 @@ body > header {
       justify-content: space-between;
       #nav-button,
       #nav-search {
+        cursor: pointer;
         display: block;
         padding: 3px 6px;
         margin: 10px 0;
@@ -169,6 +170,7 @@ body > header {
         }
       }
       .search-bar {
+        cursor: pointer;
         @extend .flex-center;
         div {
           position: relative;

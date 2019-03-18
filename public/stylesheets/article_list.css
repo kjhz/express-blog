@@ -86,7 +86,8 @@
   .post-box .post-con {
     width: 100%;
     color: #ccc;
-    padding-bottom: 10px; }
+    padding-bottom: 10px;
+    overflow: hidden; }
     .post-box .post-con a {
       text-decoration: none;
       color: #333; }

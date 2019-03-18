@@ -67,7 +67,8 @@ body > header {
       body > header nav .container ul.nav-catalog {
         margin: 0;
         padding: 0;
-        list-style: none; }
+        list-style: none;
+        cursor: pointer; }
         body > header nav .container ul.nav-catalog > li {
           display: inline-block; }
           @media screen and (min-width: 769px) {
@@ -133,43 +134,45 @@ body > header {
                 border-bottom: 1px solid #999; }
                 body > header nav .container ul.nav-catalog .dropdown .dropdown-menu li a:hover {
                   background-color: lightblue; }
-      body > header nav .container .search-bar div {
-        position: relative; }
-        body > header nav .container .search-bar div input[name="searchValue"] {
-          padding: 5px 28px 5px 5px;
-          width: 100px;
-          border-radius: 10px;
-          border-color: #999;
-          outline: none;
-          font-size: 16px; }
-        body > header nav .container .search-bar div button[type="submit"] {
-          position: absolute;
-          right: 5px;
-          border: none;
-          background-color: transparent;
-          cursor: pointer;
-          outline: none; }
-      @media screen and (max-width: 768px) {
-        body > header nav .container .search-bar {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          z-index: 1;
-          display: none;
-          width: 100%;
-          padding: 20px 0;
-          background-color: rgba(0, 0, 0, 0.8);
-          border: 1px solid #999;
-          box-shadow: 0 0 8px #999; }
-          body > header nav .container .search-bar div {
-            width: 80%;
-            margin: 0 auto;
-            font-size: 20px; }
-            body > header nav .container .search-bar div input[name="searchValue"] {
-              width: 100%;
-              font-size: inherit; }
-            body > header nav .container .search-bar div button[type="submit"] {
-              font-size: inherit; } }
+      body > header nav .container .search-bar {
+        cursor: pointer; }
+        body > header nav .container .search-bar div {
+          position: relative; }
+          body > header nav .container .search-bar div input[name="searchValue"] {
+            padding: 5px 28px 5px 5px;
+            width: 100px;
+            border-radius: 10px;
+            border-color: #999;
+            outline: none;
+            font-size: 16px; }
+          body > header nav .container .search-bar div button[type="submit"] {
+            position: absolute;
+            right: 5px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            outline: none; }
+        @media screen and (max-width: 768px) {
+          body > header nav .container .search-bar {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            display: none;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #999;
+            box-shadow: 0 0 8px #999; }
+            body > header nav .container .search-bar div {
+              width: 80%;
+              margin: 0 auto;
+              font-size: 20px; }
+              body > header nav .container .search-bar div input[name="searchValue"] {
+                width: 100%;
+                font-size: inherit; }
+              body > header nav .container .search-bar div button[type="submit"] {
+                font-size: inherit; } }
 
 body > .container {
   margin-top: 110px; }
