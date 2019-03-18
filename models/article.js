@@ -24,7 +24,7 @@ var ArticleSchema = new Schema({
     type: Schema.Types.Mixed,
     default: {
       originalname: 'default image',
-      filename: 'images/monkey_box1.png'
+      filename: '/images/monkey_box1.png'
     }
   },
   views: { type: Number, default: 0 },
