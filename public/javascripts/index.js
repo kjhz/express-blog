@@ -73,15 +73,15 @@ $(document).ready(function () {
   dropdownHandler();
   $(window).resize(dropdownHandler);
 
-  $('#nav-search').click(function (event) {
-    event.stopPropagation();
+  $('#nav-search').on('click', 'i', function(event) {
     event.preventDefault();
     $('.search-bar').slideToggle(200);
-  });
-  $('#nav-button').click(function (e) {
-    event.stopPropagation();
+    alert('d')
+  })
+  $('#nav-button').on('click', 'i', function (event) {
     event.preventDefault();
     $('.nav-catalog').slideToggle(200);
+    alert('i')
   });
 
   scrollEvent();
