@@ -89,6 +89,7 @@ body > header {
         margin: 0;
         padding: 0;
         list-style: none;
+        cursor: pointer;
         & > li {
           display: inline-block;
           @media screen and (min-width: 769px) {
@@ -169,6 +170,7 @@ body > header {
         }
       }
       .search-bar {
+        cursor: pointer;
         @extend .flex-center;
         div {
           position: relative;
