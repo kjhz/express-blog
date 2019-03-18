@@ -138,7 +138,7 @@ $(document).ready(function () {
       let content='';
       for (let i = 0; i < data.length; i++) {
         let date = new Date(data[i].updated);
-        let month = date.getMonth(),
+        let month = date.getMonth()+1,
           day = date.getDate();
 
         content += `
