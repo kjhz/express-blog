@@ -90,6 +90,7 @@ body > header {
         margin: 0;
         padding: 0;
         list-style: none;
+        cursor: pointer;
         & > li {
           display: inline-block;
           @media screen and (min-width: 769px) {

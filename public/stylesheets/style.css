@@ -53,6 +53,7 @@ body > header {
       justify-content: space-between; }
       body > header nav .container #nav-button,
       body > header nav .container #nav-search {
+        cursor: pointer;
         display: block;
         padding: 3px 6px;
         margin: 10px 0;

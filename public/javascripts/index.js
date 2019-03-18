@@ -73,10 +73,12 @@ $(document).ready(function () {
   dropdownHandler();
   $(window).resize(dropdownHandler);
 
-  $('#nav-search').click(function () {
+  $('#nav-search').click(function (event) {
+    event.stopPropagation();
     $('.search-bar').slideToggle(200);
   });
-  $('#nav-button').click(function () {
+  $('#nav-button').click(function (e) {
+    event.stopPropagation();
     $('.nav-catalog').slideToggle(200);
   });
 
