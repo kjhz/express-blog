@@ -11,7 +11,7 @@ ul.list
       article.post-box
         div.post-img
           a(href=article.url)
-            img(src='/'+article.img.filename, alt=article.img.originalname)
+            img(src=article.imgURL, alt=article.img.originalname)
         div.post-con
           h3
             a.article-title(href=article.url) #{article.title}

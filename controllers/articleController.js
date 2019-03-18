@@ -11,7 +11,7 @@ const { sanitizeBody } = require('express-validator/filter');
 var multer = require('multer')
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, 'public/uploads/')
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)

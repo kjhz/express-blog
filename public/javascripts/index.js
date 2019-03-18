@@ -76,12 +76,10 @@ $(document).ready(function () {
   $('#nav-search').on('click', 'i', function(event) {
     event.preventDefault();
     $('.search-bar').slideToggle(200);
-    alert('d')
   })
   $('#nav-button').on('click', 'i', function (event) {
     event.preventDefault();
     $('.nav-catalog').slideToggle(200);
-    alert('i')
   });
 
   scrollEvent();

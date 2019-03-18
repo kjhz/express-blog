@@ -72,5 +72,10 @@ ArticleSchema
     return this.comments.length;
   });
 
+ArticleSchema
+  .virtual('imgURL')
+  .get(function () {
+    return '/uploads/'+this.img.filename;
+  });
 
 module.exports = mongoose.model("Article", ArticleSchema);
